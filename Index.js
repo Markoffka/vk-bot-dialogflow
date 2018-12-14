@@ -1,6 +1,6 @@
 const { VK, Keyboard } = require('vk-io');
 const http = require('http')
-var port = PROCESS.ENV.PORT ||8080;
+var port = process.ENV.PORT ||8080;
 const requestHandler = (request, response) => {
     console.log(request.url)
     response.end('Hello Node.js Server!')
