@@ -139,7 +139,7 @@ hearCommand('help', async(ctx) => {
     });
 });
 hearCommand('mask', async(ctx) => {
-    temp.mask.entryCount++;
+    temp.mask.entryCount = temp.mask.entryCount + 1;
     ctx.send({
         message: 'Илон маск хуй?',
         keyboard: Keyboard.keyboard([
@@ -210,8 +210,6 @@ async function run() {
         console.log(request);
 
     }, 1000 * 60 * 29);
-
-
 
     if (process.env.UPDATES === 'webhook') {
         await vk.updates.startWebhook();
