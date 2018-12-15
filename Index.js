@@ -129,7 +129,7 @@ hearCommand('help', async(ctx) => {
                 })
             ],
             Keyboard.textButton({
-                label: `Илон Маск ${temp.mask.entryCount}`,
+                label: `Илон Маск`,
                 payload: {
                     command: 'mask'
                 },
@@ -195,12 +195,8 @@ hearCommand('purr', async(ctx) => {
         ctx.sendAudioMessage(link)
     ]);
 });
-hearCommand('mask_yes', async(ctx) => {
-    ctx.send('Я знал, что илон хуй моржовый');
-});
-hearCommand('mask_no', async(ctx) => {
-    ctx.send('Да ты один из этих самых.');
-});
+hearCommand('mask_yes', temp.mask.yes);
+hearCommand('mask_no', temp.mask.no);
 
 async function run() {
     setInterval(() => {
