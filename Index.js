@@ -3,9 +3,9 @@ const vk = new VK();
 var http = require('http');
 const port = process.env.PORT || 8080;
 var server = http.Server((req, res) => {
-    res.send(`Request count : ${anw.request_count}`);
-});
-server.listen(port);
+    res.setHeader("Content-Type", "application/json;");
+    res.end(`Request count : ${anw.request_count}`);
+}).listen(port);
 vk.setOptions({
     token: process.env.token,
     pollingGroupId: '159930509'
