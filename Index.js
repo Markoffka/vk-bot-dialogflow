@@ -1,12 +1,17 @@
 const { VK, Keyboard, Request } = require('vk-io');
-
 const vk = new VK();
-
+var http = require('http');
+const port = process.env.PORT || 8080;
+var server = http.Server((req, res) => {
+    res.send(`Request count : ${anw.request_count}`);
+});
+server.listen(port);
 vk.setOptions({
-    token: 'ed3dbb3ff5f52c7e23d52afe85ad1cced1082039f349b974d03533bdb357fbec67809d1e15390cdc88091',
+    token: process.env.token,
     pollingGroupId: '159930509'
 });
 const anw = {
+    request_count: 0,
     margo: {
         isNotify: true,
         notify: '[id69784070|Ув.Мортисия] вас упомянули.'
@@ -44,7 +49,6 @@ updates.use(async(ctx, next) => {
     }
 });
 
-// Handle message payload
 updates.use(async(ctx, next) => {
     if (ctx.is('message')) {
         const { messagePayload } = ctx;
@@ -56,6 +60,11 @@ updates.use(async(ctx, next) => {
 
     await next();
 });
+
+updates.use(async(ctx, next) => {
+    anw.request_count++;
+    await next();
+})
 
 const hearCommand = (name, conditions, handle) => {
     if (typeof handle !== 'function') {
