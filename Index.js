@@ -4,13 +4,17 @@ var http = require('http');
 const port = process.env.PORT || 8080;
 var server = http.Server((req, res) => {
     res.setHeader("Content-Type", "application/json;");
-    res.end(`Request count : ${anw.request_count}`);
+    res.end(`Request count : ${temp.request_count}`);
 }).listen(port);
 vk.setOptions({
     token: process.env.token,
     pollingGroupId: '159930509'
 });
-const anw = {
+const temp = {
+    mask: {
+        entryCount: 0
+    },
+    time: 0,
     request_count: 0,
     margo: {
         isNotify: true,
@@ -62,7 +66,7 @@ updates.use(async(ctx, next) => {
 });
 
 updates.use(async(ctx, next) => {
-    anw.request_count++;
+    temp.request_count++;
     await next();
 })
 
@@ -125,7 +129,7 @@ hearCommand('help', async(ctx) => {
                 })
             ],
             Keyboard.textButton({
-                label: 'Илон Маск',
+                label: `Илон Маск ${temp.mask.entryCount}`,
                 payload: {
                     command: 'mask'
                 },
@@ -135,6 +139,7 @@ hearCommand('help', async(ctx) => {
     });
 });
 hearCommand('mask', async(ctx) => {
+    temp.mask.entryCount++;
     ctx.send({
         message: 'Илон маск хуй?',
         keyboard: Keyboard.keyboard([
@@ -198,18 +203,20 @@ hearCommand('mask_no', async(ctx) => {
 });
 
 async function run() {
+    setInterval(() => {
+        const request = new Request('users.get', {
+            owner_id: 1
+        });
+        console.log(request);
+
+    }, 1000 * 60 * 29);
+
+
+
     if (process.env.UPDATES === 'webhook') {
         await vk.updates.startWebhook();
 
         console.log('Webhook server started');
-
-        setInterval(() => {
-            const request = new Request('users.get', {
-                owner_id: 1
-            });
-            console.log(request);
-
-        }, 1000 * 60 * 29);
 
     } else {
         await vk.updates.startPolling();
