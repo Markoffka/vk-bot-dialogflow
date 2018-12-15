@@ -15,7 +15,7 @@ server.listen(port, (err) => {
 const vk = new VK();
 
 vk.setOptions({
-    token: 'ed3dbb3ff5f52c7e23d52afe85ad1cced1082039f349b974d03533bdb357fbec67809d1e15390cdc88091',
+    token: process.env.token,
     pollingGroupId: '159930509'
 });
 const anw = {
