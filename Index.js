@@ -1,21 +1,9 @@
-const { VK, Keyboard } = require('vk-io');
-const http = require('http')
-var port = process.env.PORT ||8080;
-const requestHandler = (request, response) => {
-    console.log(request.url)
-    response.end('Hello Node.js Server!')
-}
-const server = http.createServer(requestHandler)
-server.listen(port, (err) => {
-    if (err) {
-        return console.log('something bad happened', err)
-    }
-    console.log(`server is listening on ${port}`)
-})
+const { VK, Keyboard, Request } = require('vk-io');
+
 const vk = new VK();
 
 vk.setOptions({
-    token: process.env.token,
+    token: 'ed3dbb3ff5f52c7e23d52afe85ad1cced1082039f349b974d03533bdb357fbec67809d1e15390cdc88091',
     pollingGroupId: '159930509'
 });
 const anw = {
@@ -145,14 +133,14 @@ hearCommand('mask', async(ctx) => {
                 Keyboard.textButton({
                     label: 'да',
                     payload: {
-                        command: 'yes'
+                        command: 'mask_yes'
                     },
                     color: Keyboard.POSITIVE_COLOR
                 }),
                 Keyboard.textButton({
                     label: 'нет',
                     payload: {
-                        command: 'no'
+                        command: 'mask_no'
                     },
                     color: Keyboard.NEGATIVE_COLOR
                 })
@@ -188,22 +176,32 @@ hearCommand('purr', async(ctx) => {
     const link = catsPurring[Math.floor(Math.random() * catsPurring.length)];
 
     await Promise.all([
-        ctx.send('Wait for the uploads purring 😻'),
+        ctx.send('Мур мур'),
 
         ctx.sendAudioMessage(link)
     ]);
 });
-hearCommand('yes', async(ctx) => {
+hearCommand('mask_yes', async(ctx) => {
     ctx.send('Я знал, что илон хуй моржовый');
 });
-hearCommand('no', async(ctx) => {
+hearCommand('mask_no', async(ctx) => {
     ctx.send('Да ты один из этих самых.');
 });
+
 async function run() {
     if (process.env.UPDATES === 'webhook') {
         await vk.updates.startWebhook();
 
         console.log('Webhook server started');
+
+        setInterval(() => {
+            const request = new Request('users.get', {
+                owner_id: 1
+            });
+            console.log(request);
+
+        }, 1000 * 60 * 29);
+
     } else {
         await vk.updates.startPolling();
 
