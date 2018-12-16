@@ -1,15 +1,15 @@
 {
-  "name": "vkbot",
-  "version": "1.0.0",
-  "description": "",
-  "main": "Index.js",
-  "scripts": {
-    "start": "node Index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "vk-io": "^4.0.0-rc.10"
-  }
+    "name": "vkbot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "vk-io": "^4.0.0-rc.10"
+    }
 }
