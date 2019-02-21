@@ -3,7 +3,7 @@ module.exports = {
     exec: async(ctx, next) => {
         ctx.state.command = 'help';
         ctx.send(`
-        Время аптайма:
+            Время аптайма:
             ${process.uptime()} сек.
         `)
     }

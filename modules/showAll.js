@@ -1,9 +1,11 @@
 var modules = [];
 const fs = require('fs')
-const { Keyboard } = require('vk-io');
+const {
+    Keyboard
+} = require('vk-io');
 module.exports = {
     command: 'all',
-    exec: async(ctx) => {
+    exec: async (ctx) => {
         var mods = [];
         fs.readdirSync('./modules', (err, f) => {
             if (err) {
@@ -27,7 +29,7 @@ module.exports = {
             });
         });
 
-        await ctx.send({
+        ctx.send({
             message: 'Список всех коммнад.',
             keyboard: Keyboard.keyboard(mods)
         });
