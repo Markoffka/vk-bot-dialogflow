@@ -1,6 +1,6 @@
 module.exports = {
   command: /(?'command'.+):(?'func'.+\b)(?'args'.+|)/i,
-  exec: async (ctx) => {
+  exec: async (ctx, next) => {
     switch (ctx.match['command']) {
       case 'timer':
         switch (ctx.match['func']) {
@@ -40,5 +40,6 @@ module.exports = {
       default:
         break;
     }
+    next();
   }
 }
