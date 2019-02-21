@@ -6,5 +6,6 @@ module.exports = {
             Время аптайма:
             ${process.uptime()} сек.
         `)
+        next();
     }
 }
