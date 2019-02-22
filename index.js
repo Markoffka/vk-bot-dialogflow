@@ -1,4 +1,8 @@
-const { VK, Keyboard, Request } = require('vk-io');
+const {
+    VK,
+    Keyboard,
+    Request
+} = require('vk-io');
 const vk = new VK();
 var http = require('http');
 const port = process.env.PORT || 8080;
@@ -29,19 +33,21 @@ const temp = {
     },
     mask: {
         question: 'Илон Маск хуй?',
-        yes: async(ctx) => {
+        yes: async (ctx) => {
             await ctx.send('Ты нормальный чел.');
         },
-        no: async(ctx) => {
+        no: async (ctx) => {
             await ctx.send('Ты омежка.');
         }
     }
 }
-const { updates } = vk;
+const {
+    updates
+} = vk;
 
 
 // Skip outbox message and handle errors
-updates.use(async(ctx, next) => {
+updates.use(async (ctx, next) => {
     if (ctx.is('message') && ctx.isOutbox) {
         return;
     }
@@ -53,9 +59,11 @@ updates.use(async(ctx, next) => {
     }
 });
 
-updates.use(async(ctx, next) => {
+updates.use(async (ctx, next) => {
     if (ctx.is('message')) {
-        const { messagePayload } = ctx;
+        const {
+            messagePayload
+        } = ctx;
 
         ctx.state.command = messagePayload && messagePayload.command ?
             messagePayload.command :
@@ -65,7 +73,7 @@ updates.use(async(ctx, next) => {
     await next();
 });
 
-updates.use(async(ctx, next) => {
+updates.use(async (ctx, next) => {
     temp.request_count++;
     await next();
 })
@@ -82,7 +90,9 @@ const hearCommand = (name, conditions, handle) => {
 
     updates.hear(
         [
-            (text, { state }) => (
+            (text, {
+                state
+            }) => (
                 state.command === name
             ),
             ...conditions
@@ -91,13 +101,18 @@ const hearCommand = (name, conditions, handle) => {
     );
 };
 
-hearCommand('start', async(ctx, next) => {
+hearCommand('start', async (ctx, next) => {
     ctx.state.command = 'help';
 
     await next();
 });
 
-hearCommand('help', async(ctx) => {
+hearCommand(/(?'command'.+):(?'func'.+\b)(?'args'.+|)/gim, async (ctx, next) => {
+    await ctx.send(JSON.stringify(ctx.match, null, 2));
+    next();
+})
+
+hearCommand('help', async (ctx) => {
     await ctx.send({
         message: 'мур',
         keyboard: Keyboard.keyboard([
@@ -138,7 +153,7 @@ hearCommand('help', async(ctx) => {
         ]).oneTime()
     });
 });
-hearCommand('mask', async(ctx) => {
+hearCommand('mask', async (ctx) => {
     temp.mask.entryCount = temp.mask.entryCount + 1;
     ctx.send({
         message: 'Илон маск хуй?',
@@ -162,7 +177,7 @@ hearCommand('mask', async(ctx) => {
         ]).oneTime()
     })
 })
-hearCommand('cat', async(ctx) => {
+hearCommand('cat', async (ctx) => {
     await Promise.all([
         ctx.send('Гружу кота 😻'),
 
@@ -170,11 +185,11 @@ hearCommand('cat', async(ctx) => {
     ]);
 });
 
-hearCommand('time', ['/time', '/date'], async(ctx) => {
+hearCommand('time', ['/time', '/date'], async (ctx) => {
     await ctx.send(String(new Date().toLocaleTimeString()));
 });
 
-hearCommand('reverse', /^\/reverse (.+)/i, async(ctx) => {
+hearCommand('reverse', /^\/reverse (.+)/i, async (ctx) => {
     const text = ctx.$match[1];
     const reversed = text.split('').reverse().join('');
     await ctx.send(reversed);
@@ -186,7 +201,7 @@ const catsPurring = [
     'http://ronsen.org/purrfectsounds/purrs/chicken.mp3'
 ];
 
-hearCommand('purr', async(ctx) => {
+hearCommand('purr', async (ctx) => {
     const link = catsPurring[Math.floor(Math.random() * catsPurring.length)];
 
     await Promise.all([
