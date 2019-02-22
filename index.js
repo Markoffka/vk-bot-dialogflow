@@ -107,7 +107,7 @@ hearCommand('start', async (ctx, next) => {
     await next();
 });
 
-hearCommand(/(?<command>\w+)(?<delim>\W)(?<function>\w+)(?<arguments>.*)/gim, async (ctx, next) => {
+hear(/(?<command>\w+)(?<delim>\W)(?<function>\w+)(?<arguments>.*)/gim, async (ctx, next) => {
     await ctx.send(JSON.stringify(ctx.match, null, 2));
     next();
 })
