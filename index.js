@@ -10,40 +10,19 @@ const port = process.env.PORT || 8080;
 var server = http
   .Server((req, res) => {
     res.setHeader("Content-Type", "application/json;");
-    res.end(`Request count : ${temp.request_count}`);
+    res.json({
+      error: {
+        message: 'Unexepted error',
+        code: '-1'
+      }
+    });
   })
   .listen(port);
 vk.setOptions({
   token: process.env.token,
   pollingGroupId: "159930509"
 });
-const temp = {
-  mask: {
-    entryCount: 0
-  },
-  time: 0,
-  request_count: 0,
-  margo: {
-    isNotify: true,
-    notify: "[id69784070|Ув.Мортисия] вас упомянули."
-  },
-  direct: "Напомните админу, что бы дал мне права читать сообщения...",
-  owner: {
-    vk: "http://vk.com/furryanonim",
-    id: "263590903",
-    name: "Markoffka",
-    screen_name: "furryanonim"
-  },
-  mask: {
-    question: "Илон Маск хуй?",
-    yes: async ctx => {
-      await ctx.send("Ты нормальный чел.");
-    },
-    no: async ctx => {
-      await ctx.send("Ты омежка.");
-    }
-  }
-};
+
 const {
   updates
 } = vk;
@@ -106,7 +85,7 @@ hearCommand("start", async (ctx, next) => {
 updates.hear(
   /(?<command>\w+)(?<delim>\W)(?<function>\w+)(?<arguments>.*)/gim,
   async (ctx, next) => {
-    await ctx.send(JSON.stringify(ctx.match, null, 2));
+    await ctx.send(JSON.stringify(ctx.$match, null, 2));
     next();
   }
 );
@@ -169,30 +148,6 @@ hearCommand("get:help", async ctx => {
       -- Reverse text to txet
   `);
 });
-hearCommand("mask", async ctx => {
-  temp.mask.entryCount = temp.mask.entryCount + 1;
-  ctx.send({
-    message: "Илон маск хуй?",
-    keyboard: Keyboard.keyboard([
-      [
-        Keyboard.textButton({
-          label: "да",
-          payload: {
-            command: "mask_yes"
-          },
-          color: Keyboard.POSITIVE_COLOR
-        }),
-        Keyboard.textButton({
-          label: "нет",
-          payload: {
-            command: "mask_no"
-          },
-          color: Keyboard.NEGATIVE_COLOR
-        })
-      ]
-    ]).oneTime()
-  });
-});
 hearCommand("get:cat", async ctx => {
   await Promise.all([
     ctx.send("Гружу кота 😻"),
@@ -225,8 +180,6 @@ hearCommand("purr", async ctx => {
 
   await Promise.all([ctx.send("Мур мур"), ctx.sendAudioMessage(link)]);
 });
-hearCommand("mask_yes", temp.mask.yes);
-hearCommand("mask_no", temp.mask.no);
 
 async function run() {
   setInterval(() => {
