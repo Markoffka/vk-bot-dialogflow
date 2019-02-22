@@ -48,7 +48,7 @@ updates.use(async (ctx, next) => {
 });
 
 updates.hear(
-  /^\!(.+)$/i,
+  /^([a-zA-Zа-яА-Я]+)\:([a-zA-Zа-яА-Я]+)(\s[a-zA-Zа-яА-Я]+|)$/i,
   async (ctx, next) => {
     await ctx.send(JSON.stringify(ctx.$match, null, 2));
     next();
