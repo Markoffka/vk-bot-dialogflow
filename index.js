@@ -41,7 +41,7 @@ updates.use(async (ctx, next) => {
 });
 
 updates.hear(
-  /(?<command>\w+)(?<delim>\W)(?<function>\w+)(?<arguments>.*)/gim,
+  /^(\w+)\:(\w+) (.+)$/gim,
   async (ctx, next) => {
     await ctx.send(`
       command: ${ctx.$match.command}
