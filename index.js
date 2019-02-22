@@ -48,9 +48,9 @@ updates.use(async (ctx, next) => {
 });
 
 updates.hear(
-  /^\!(.+)$/gim,
+  /^\!(.+)$/i,
   async (ctx, next) => {
-    await ctx.send(ctx.$match[0]);
+    await ctx.send(JSON.stringify(ctx.$match, null, 2));
     next();
   }
 );
