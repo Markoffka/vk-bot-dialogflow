@@ -47,11 +47,18 @@ updates.use(async (ctx, next) => {
   await next();
 });
 
+updates.use(async (ctx, next) => {
+  if (process.env.activity == 'off')
+    process.exit(0);
+  next();
+})
+
 updates.hear(
   /^([a-zA-Zа-яА-Я]+)\:([a-zA-Zа-яА-Я]+)(\s[a-zA-Zа-яА-Я]+|)$/i,
   async (ctx, next) => {
-    await ctx.send(JSON.stringify(ctx.$match, null, 2));
-    next();
+    let [, c, f, a] = ctx.$match
+
+    await next();
   }
 );
 
