@@ -43,7 +43,8 @@ updates.use(async (ctx, next) => {
 updates.hear(
   /^(\w+)\:(\w+) (.+)$/gim,
   async (ctx, next) => {
-    await ctx.send(JSON.stringify(ctx.$match, null, 2));
+    let match = ctx.$match;
+    await ctx.send(JSON.stringify(match, null, 2));
     next();
   }
 );
