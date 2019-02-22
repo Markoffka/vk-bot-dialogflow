@@ -1,7 +1,8 @@
 module.exports = {
   command: /(?'command'.+):(?'func'.+\b)(?'args'.+|)/i,
   exec: async (ctx, next) => {
-    ctx.send(JSON.stringify(ctx.match, null, 2));
+    await ctx.send(JSON.stringify(ctx.$match, null, 2));
+    next()
     /*
     switch (ctx.match['command']) {
       case 'timer':
