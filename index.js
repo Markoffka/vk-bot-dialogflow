@@ -80,7 +80,11 @@ hearCommand("start", async (ctx, next) => {
 updates.hear(
   /(?<command>\w+)(?<delim>\W)(?<function>\w+)(?<arguments>.*)/gim,
   async (ctx, next) => {
-    await ctx.send(JSON.stringify(ctx.$match, null, 2));
+    await ctx.send(`
+      command: ${ctx.$match.command}
+      function: ${ctx.$match.function}
+      arguments: ${ctx.$match.arguments}
+    `);
     next();
   }
 );
@@ -128,19 +132,19 @@ hearCommand("get:help", async ctx => {
   }); */
 
   ctx.reply(`
-    ## Help message
-    # get
-      :help
-      -- Get this message
-      :[time, date]
-      -- Get current time
-      :cat
-      -- Get cat photo
-      :purr
-      -- Get cat purr
-    # do
-      :reverse (text)
-      -- Reverse text to txet
+    Help message
+    ..get
+    @:help
+    @-- Get this message
+    @:[time, date]
+    @-- Get current time
+    @:cat
+    @-- Get cat photo
+    @:purr
+    @-- Get cat purr
+    ..do
+    @:reverse (text)
+    @-- Reverse text to txet
   `);
 });
 hearCommand("get:cat", async ctx => {
