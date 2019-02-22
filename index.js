@@ -1,4 +1,8 @@
-const { VK, Keyboard, Request } = require("vk-io");
+const {
+  VK,
+  Keyboard,
+  Request
+} = require("vk-io");
 const vk = new VK();
 var http = require("http");
 const _ = require("lodash");
@@ -40,7 +44,9 @@ const temp = {
     }
   }
 };
-const { updates } = vk;
+const {
+  updates
+} = vk;
 
 // Skip outbox message and handle errors
 updates.use(async (ctx, next) => {
@@ -57,7 +63,9 @@ updates.use(async (ctx, next) => {
 
 updates.use(async (ctx, next) => {
   if (ctx.is("message")) {
-    const { messagePayload } = ctx;
+    const {
+      messagePayload
+    } = ctx;
 
     ctx.state.command =
       messagePayload && messagePayload.command ? messagePayload.command : null;
@@ -82,7 +90,9 @@ const hearCommand = (name, conditions, handle) => {
   }
 
   updates.hear(
-    [(text, { state }) => state.command === name, ...conditions],
+    [(text, {
+      state
+    }) => state.command === name, ...conditions],
     handle
   );
 };
@@ -101,8 +111,8 @@ updates.hear(
   }
 );
 
-hearCommand("help", async ctx => {
-  await ctx.send({
+hearCommand("get:help", async ctx => {
+  /* await ctx.send({
     message: "мур",
     keyboard: Keyboard.keyboard([
       Keyboard.textButton({
@@ -141,7 +151,23 @@ hearCommand("help", async ctx => {
         color: Keyboard.POSITIVE_COLOR
       })
     ]).oneTime()
-  });
+  }); */
+
+  ctx.reply(`
+    ## Help message
+    # get
+      :help
+      -- Get this message
+      :[time, date]
+      -- Get current time
+      :cat
+      -- Get cat photo
+      :purr
+      -- Get cat purr
+    # do
+      :reverse (text)
+      -- Reverse text to txet
+  `);
 });
 hearCommand("mask", async ctx => {
   temp.mask.entryCount = temp.mask.entryCount + 1;
@@ -167,7 +193,7 @@ hearCommand("mask", async ctx => {
     ]).oneTime()
   });
 });
-hearCommand("cat", async ctx => {
+hearCommand("get:cat", async ctx => {
   await Promise.all([
     ctx.send("Гружу кота 😻"),
 
@@ -175,11 +201,11 @@ hearCommand("cat", async ctx => {
   ]);
 });
 
-hearCommand("time", ["/time", "/date"], async ctx => {
+hearCommand("time", ["get:time", "get:date"], async ctx => {
   await ctx.send(String(new Date().toLocaleTimeString()));
 });
 
-hearCommand("reverse", /^\/reverse (.+)/i, async ctx => {
+hearCommand("reverse", /^do\:reverse (.+)/i, async ctx => {
   const text = ctx.$match[1];
   const reversed = text
     .split("")
