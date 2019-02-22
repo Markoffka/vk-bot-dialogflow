@@ -7,6 +7,13 @@ const vk = new VK();
 const _ = require("lodash");
 const port = process.env.PORT || 8080;
 
+var http = require('http');
+
+var server = http.Server((req, res) => {
+  res.setHeader("Content-Type", "application/json;");
+  res.end(`M4rkoffka_B0T`);
+}).listen(port);
+
 vk.setOptions({
   token: process.env.token,
   pollingGroupId: "159930509"
