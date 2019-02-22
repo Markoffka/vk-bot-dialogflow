@@ -10,12 +10,12 @@ const port = process.env.PORT || 8080;
 var server = http
   .Server((req, res) => {
     res.setHeader("Content-Type", "application/json;");
-    res.json({
+    res.send(json.stringify({
       error: {
         message: 'Unexepted error',
         code: '-1'
       }
-    });
+    }, null, 2));
   })
   .listen(port);
 vk.setOptions({
