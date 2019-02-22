@@ -53,11 +53,6 @@ updates.use(async (ctx, next) => {
   await next();
 });
 
-updates.use(async (ctx, next) => {
-  temp.request_count++;
-  await next();
-});
-
 const hearCommand = (name, conditions, handle) => {
   if (typeof handle !== "function") {
     handle = conditions;
