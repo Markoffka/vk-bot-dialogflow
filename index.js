@@ -10,7 +10,7 @@ const port = process.env.PORT || 8080;
 var server = http
   .Server((req, res) => {
     res.setHeader("Content-Type", "application/json;");
-    res.send(JSON.stringify({
+    res.end(JSON.stringify({
       error: {
         message: 'Unexepted error',
         code: '-1'
