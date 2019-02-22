@@ -43,11 +43,7 @@ updates.use(async (ctx, next) => {
 updates.hear(
   /^(\w+)\:(\w+) (.+)$/gim,
   async (ctx, next) => {
-    await ctx.send(`
-      command: ${ctx.$match.command}
-      function: ${ctx.$match.function}
-      arguments: ${ctx.$match.arguments}
-    `);
+    await ctx.send(JSON.stringify(ctx.$match, null, 2));
     next();
   }
 );
