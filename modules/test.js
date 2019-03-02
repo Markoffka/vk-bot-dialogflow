@@ -1,48 +1,34 @@
-module.exports = {
-  command: /(?'command'.+):(?'func'.+\b)(?'args'.+|)/i,
-  exec: async (ctx, next) => {
-    await ctx.send(JSON.stringify(ctx.$match, null, 2));
-    next()
-    /*
-    switch (ctx.match['command']) {
-      case 'timer':
-        switch (ctx.match['func']) {
-          case 'on':
-            ctx.reply('[test] Start timer');
-            break;
-          case 'off':
-            ctx.reply('[test] Stop timer');
-            break;
-          default:
-            ctx.reply(`Command ${ctx.match['command']} don\`t have function as ${ctx.match['func']}`);
-            break;
-        }
-        break;
-      case 'say':
-        switch (ctx.match['func']) {
-          case 'msg':
-            if (ctx.match['args'].length > 0 && ctx.match['args'].trim() != '')
-              ctx.send(ctx.match['args']);
-            break;
-          case 'audio':
-            ctx.send('I can`t send audio, i have Jlanku :(');
-            break;
-          default:
-            ctx.send(
-              `:msg [text]
-              -- Send [text] to channel
-              :audio [Audio name] {Deprecated}
-              -- Send [Audio] to channel
-              
-              -- Without function (:) - show this help message.
-              `
-            );
-            break;
-        }
-        break;
-      default:
-        break;
-    }
-    */
+const path = require('path');
+const cwd = process.cwd();
+const path_to_utils = path.join(cwd, 'utils')
+const Module = require(path.join(
+  path_to_utils,
+  'module',
+  'Module.js'
+))
+
+const name = 'Echo'
+const alias = /echo(.+)/i
+
+class test extends Module {
+  constructor(bot) {
+    super(bot)
+    super._name = name;
+    super._alias = alias;
+    super._exec = this.exec;
+  }
+  async init(){
+    super.Init();
+  }
+
+  async command(ctx, next){
+    await ctx.send(ctx.$match[1] ? 'Echo: ' + ctx.$match[1] : 'Echo');
+    next();
+  }
+
+  async die(){
+    super.Die();
   }
 }
+
+module.exports = test

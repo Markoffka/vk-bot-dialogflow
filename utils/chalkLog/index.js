@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const clog = console.log;
 const cprimary = chalk.black.bgBlackBright;
-const cerror = chalk.red.bgBlue;
+const cerror = chalk.black.bgWhite;
 const cinfo = chalk.blue;
 
 module.exports = {

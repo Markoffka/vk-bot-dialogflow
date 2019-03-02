@@ -5,32 +5,32 @@ const {
 } = require("vk-io");
 const vk = new VK();
 const _ = require("lodash");
-const port = process.env.PORT || 8080;
-
+const { Nuxt, Builder } = require('nuxt')
+const nuxt = new Nuxt();
+const express = require('express')
+const app = express();
+const body_parser = require('body-parser')
+app.use(body_parser.json());
+app.use(nuxt.render)
+const port = process.env.PORT || 3000;
 const chalkLog = require('./utils/chalkLog');
-
-var http = require("http");
-
-var server = http
-  .Server((req, res) => {
-    chalkLog.log("New connection on http");
-    res.setHeader("Content-Type", "application/json;");
-    res.end(`M4rkoffka_B0T`);
-  })
-  .listen(port);
-
-const TOKEN = process.env.token || require("./config.json").token;
-
+app.get('/', (req, res, next) => {
+  res.send('Ok');
+})
+app.listen(port)
+const TOKEN = process.env.token || require('./config.json').token
+const GROUP_ID = process.env.groupId || require('./config.json').groupId
 vk.setOptions({
   token: TOKEN,
-  pollingGroupId: "159930509"
+  pollingGroupId: GROUP_ID
 });
 
 const {
   updates
 } = vk;
 
-// Skip outbox message and handle errors
+const invites = {}
+
 updates.use(async (ctx, next) => {
   if (ctx.is("message") && ctx.isOutbox) {
     return;
@@ -60,9 +60,46 @@ updates.use(async (ctx, next) => {
 });
 
 updates.hear(
-  /^([a-zA-Zа-яА-Я]+)\:([a-zA-Zа-яА-Я]+)(\s[a-zA-Zа-яА-Я]+|)$/i,
+  /^бот, добавь меня$/i,
   async (ctx, next) => {
-    let [, c, f, a] = ctx.$match;
+    if (_.findKey(invites, (id) => console.log
+    ) > 1) {
+      switch(invites[ctx.senderId].state){
+        case 'new':
+        await ctx.send('Вы были добавлены в очередь, ожидайте.');
+        break;
+        case 'success':
+        await ctx.send('Вы успешно авторизованы, радуйтесь жизни.');
+        break;
+        case 'denied':
+        await ctx.send('Отклонено.');
+        break;
+        case 'error':
+        await ctx.send('Ошибка.');
+        await ctx.send(`
+        code : ${invites[ctx.senderId].error.code}
+        message : ${invites[ctx.senderId].error.message}
+        `)
+        break;
+        default:
+        await ctx.send('Повторите попытку позже.');
+        break;
+      }
+    }
+    else {
+      await ctx.send('Высылаю');
+      console.log(ctx.senderId + ' wass addaded');
+      invites[ctx.senderId] = { state : 'new' }
+      setTimeout(()=>{
+        inv = invites[263590903];
+        inv.state = 'error'
+        inv.error = {
+          code : 1,
+          message : 'Сервер авторизации, регистрации и всего чего только можно не отвечает, да я его и не спрашивал - его нет.'
+        }
+      }, 5000)
+    }
+    console.dir(invites)
   }
 );
 
