@@ -7,8 +7,8 @@ server.start({
 })
 
 bot.run({
-  token: require('./config.json').token || process.env.TOKEN,
-  id : require('./config.json').groupId || process.env.groupID,
+  token: process.env.TOKEN || require('./config.json').token,
+  id : process.env.groupID || require('./config.json').groupId,
   mode: 'polling', // webhook or polling
   bot,
   server
