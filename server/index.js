@@ -1,8 +1,11 @@
 const express = require('express')
 const app = express()
+/*
 const expressVue = require('express-vue')
-const expressVueMiddleware = expressVue.init();
+const expressVueMiddleware = expressVue.init(); 
 app.use(expressVueMiddleware);
+*/
+
 
 require('./midleware/main')(app);
 

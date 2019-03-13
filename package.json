@@ -8,6 +8,7 @@
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.4",
     "express-vue": "^5.8.2",
+    "lodash": "^4.17.11",
     "natural": "^0.6.3",
     "vk-io": "^4.0.0-rc.15"
   },

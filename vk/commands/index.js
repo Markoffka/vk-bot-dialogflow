@@ -32,7 +32,7 @@ function load(app) {
       }
       command(options)
     } catch (error) {
-      console.log(`${e} error`)
+      console.error(`${e}`, error)
     }
   })
 }

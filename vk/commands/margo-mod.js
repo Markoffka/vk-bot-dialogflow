@@ -3,7 +3,8 @@ module.exports = async (o) => {
     if(ctx.senderId == '69784070' && ctx.hasText)
     {
       if( (/ня/gim).exec(ctx.text))
-        ctx.send('ня')
+        if(Math.random() * 10 == 5)
+          ctx.send('ня')
     }
     await next();
   })

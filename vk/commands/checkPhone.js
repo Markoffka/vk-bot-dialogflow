@@ -1,5 +1,4 @@
 const check = require('./utils/getPhoneStats');
-
 module.exports = async ({ app }) => {
   app.bot.updates.hear(/(!|!!)тел ((\+7|7|8)+([0-9]){10})/i, async (ctx, next) => {
     let phone = ctx.$match[2]
@@ -32,10 +31,7 @@ module.exports = async ({ app }) => {
         --
         ${addInfo}
       `);
-
     })
-
-
     next()
   })
 }
