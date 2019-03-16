@@ -8,15 +8,9 @@ module.exports = async (o) => {
     else query = (/\[club159930509\|.*\](.+)/i).exec(ctx.text)
     if(query === null) return; else if(typeof query === 'object') query = query[1]
     query = query.trim();
-
     console.log(`User ${query}`);
-    
-
     let answer = await dialogflow.get(query, ctx.senderId, ctx)
     dialogflow.command(answer, ctx, next)
-    await next();
-  })
-  o.app.bot.updates.use(async (ctx, next)=>{
     await next();
   })
 }

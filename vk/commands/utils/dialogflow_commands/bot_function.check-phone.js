@@ -1,14 +1,18 @@
 let check = require('../getPhoneStats')
 
-module.exports = async (params, ctx, next) => {
+module.exports = async ({answer, ctx, next}) => {
+let {parameters:params} = answer
   if (params['phone-number'] != '') {
-    await check(params['phone-number']).then(info => {
-      let iconRate = info.rate //✔⚠❔
+    return await check(params['phone-number']).then(info => {
+      let iconRate = info.rate
       let intRate = parseInt(iconRate)
-      if (intRate == 0) iconRate = '❔'
-      else if (intRate > 0) iconRate = '✔'
-      else if (intRate < 0) iconRate = '⚠'
-      let addInfo = 'Для доп. информации искать с !!тел [номер]'
+      if (intRate == 0) iconRate = 'неизвестный'
+      else if (intRate > 0) iconRate = 'хороший'
+      else if (intRate < 0) iconRate = 'плохой'
+      return new Promise((res, err)=>{
+        res({"rate": iconRate})
+      })
+      /* let addInfo = 'Для доп. информации искать с !!тел [номер]'
       if (params['bot_ext_phoneAddidational-info'] != '')
         addInfo = `Неизвестно......: ${info.stats.unknowed} 
         Коллекторы.....: ${info.stats.collector} 
@@ -27,7 +31,8 @@ module.exports = async (params, ctx, next) => {
       Рейтинг.....: ${info.rate} ${iconRate}
       --
       ${addInfo}
-    `);
+    `); */
     })
   }
+  return {}
 }

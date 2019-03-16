@@ -1,6 +1,7 @@
 const bot = require('./vk')
 const server = require('./server')
 
+if(process.env.activity === 0) throw new Error('Activity is off');
 
 server.start({
   port: process.env.PORT || 80,
