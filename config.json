@@ -1,3 +1,8 @@
 {
-  "token": "ed3dbb3ff5f52c7e23d52afe85ad1cced1082039f349b974d03533bdb357fbec67809d1e15390cdc88091"
+  "vk" : {
+    "token": "ed3dbb3ff5f52c7e23d52afe85ad1cced1082039f349b974d03533bdb357fbec67809d1e15390cdc88091"
+  },
+  "server" : {
+    "port" : "3000"
+  }
 }
