@@ -1,0 +1,18 @@
+{
+  "script": "index.js",
+  "name": "Auda",
+  "env": {},
+  "merge_logs": true,
+  "vizion": true,
+  "autorestart": true,
+  "watch": true,
+  "force": true,
+  "instance_var": "NODE_APP_INSTANCE",
+  "pmx": true,
+  "automation": true,
+  "treekill": true,
+  "username": "Morticia",
+  "windowsHide": true,
+  "kill_retry_time": 100,
+  "write": true
+}

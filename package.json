@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "name": "vkbot",
     "version": "1.0.0",
     "description": "Simple module bot for VK",
@@ -14,4 +15,49 @@
         "commander": "^2.19.0",
         "vk-io": "^4.0.0-rc.10"
     }
+=======
+  "name": "vkb",
+  "version": "2.1.0",
+  "description": "VK Rus Bot Extensiable",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "express-vue": "^5.8.2",
+    "lodash": "^4.17.11",
+    "natural": "^0.6.3",
+    "string-template": "^1.0.0",
+    "vk-io": "^4.0.0-rc.15"
+  },
+  "scripts": {
+    "pm2": "pm2 start index.js -n \"Auda\"&&pm2 logs Auda",
+    "pm2:dev": "pm2 start index.js -n \"Auda\" --watch&&pm2 logs Auda",
+    "start": "node .",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Markoffka/VKB.git"
+  },
+  "keywords": [
+    "bot",
+    "vk",
+    "test",
+    "vue",
+    "express",
+    "vk-io"
+  ],
+  "author": "Markoffka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Markoffka/VKB/issues"
+  },
+  "homepage": "https://github.com/Markoffka/VKB#readme",
+  "devDependencies": {
+    "pm2": "latest",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0"
+  }
+>>>>>>> a6cfe53762cbc2179cca9ef667d3a9687cdccc66
 }
