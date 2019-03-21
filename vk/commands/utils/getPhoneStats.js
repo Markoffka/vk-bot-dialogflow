@@ -1,6 +1,8 @@
 const cheerio = require('cheerio')
 const axios = require('axios')
 
+//FIXME: сменить cheerio на osmosis
+
 module.exports = (phone) => {
   return axios.get('http://ss1.ru/' + phone).then(data => {
     const html = data.data;

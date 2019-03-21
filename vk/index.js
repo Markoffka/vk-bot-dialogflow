@@ -3,7 +3,7 @@ const vk = new VK();
 const { updates } = vk;
 
 const commands = require('./commands')
-const natural = require('./processing')
+/* const natural = require('./processing') */
 
 updates.use(async (ctx, next) => {
   if (ctx.is("message") && ctx.isOutbox) {
@@ -25,7 +25,7 @@ async function run(opts) {
     pollingGroupId: opts.id
   });
 
-  opts.natural = natural
+/*   opts.natural = natural */
   commands.load(opts)
   
   if (process.env.UPDATES === "webhook" || opts.mode == 'webhook') {

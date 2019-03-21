@@ -4,9 +4,10 @@ module.exports = async (answer, ctx, next) => {
   let options = { answer, ctx, next }
   let toSend = answer.fulfillment.speech;
   let raw_data = {
-    name: 'Пользователь',
+    name: '@user',
     bot_name: 'Auda'
   }
+  //FIXME: set name to user name
   try {
     let script = require(`./dialogflow_commands/${answer.action}.js`)
     script(options).then(data => {

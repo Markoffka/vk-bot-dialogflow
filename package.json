@@ -9,7 +9,8 @@
     "express": "^4.16.4",
     "express-vue": "^5.8.2",
     "lodash": "^4.17.11",
-    "natural": "^0.6.3",
+    "needle": "^2.2.4",
+    "node-pre-gyp": "^0.12.0",
     "string-template": "^1.0.0",
     "vk-io": "^4.0.0-rc.15"
   },

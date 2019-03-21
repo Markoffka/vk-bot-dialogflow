@@ -12,6 +12,7 @@ let {parameters:params} = answer
       return new Promise((res, err)=>{
         res({"rate": iconRate})
       })
+      //TODO: Добавить дополнительную информацию в вывод
       /* let addInfo = 'Для доп. информации искать с !!тел [номер]'
       if (params['bot_ext_phoneAddidational-info'] != '')
         addInfo = `Неизвестно......: ${info.stats.unknowed} 

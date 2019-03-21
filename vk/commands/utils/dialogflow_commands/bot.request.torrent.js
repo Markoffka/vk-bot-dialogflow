@@ -1,41 +1,49 @@
-/*
+
 const osmosis = require('osmosis')
-const chalk = require('chalk')
-const wrap = require('wordwrap')(75)
-
 let SEARCH_STRING = ''
-let baseUrl = 'http://gmt-max.net'
-
-const warning = (text) => console.log(word(chalk.red(text)))
+const baseUrl = 'http://gmt-max.net'
 let results = []
 
-osmosis
-  .post(baseUrl + '/index.php?do=search', {
-    do: 'search',
-    subaction: 'search',
-    search_start: 1,
-    full_search: 0,
-    result_from: 1,
-    story: SEARCH_STRING
-  })
-  .find('#dle-content > .short_news_title')
-  .set({
-    title: '.short_news_title_center'
-  })
-  .follow('a')
-  .find('.torrent > .title > a@href')
-  .set('url')
-  .data(el => {
-    el.url = baseUrl + el.url
-    results.push(el)
-  })
-  .done(() => {})
-  */
-
-module.exports = () => {
+ module.exports = async ({answer, ctx, next}) => {
+  let {parameters:params} = answer
+  if(!params['game']) return {}
+  SEARCH_STRING = params['game']
   return new Promise((res, rej) => {
-    res({
-      text: 'Этот текст в скрипте.'
-    })
+    osmosis
+      .post(baseUrl + '/index.php?do=search', {
+        do: 'search',
+        subaction: 'search',
+        search_start: 1,
+        full_search: 0,
+        result_from: 1,
+        story: SEARCH_STRING
+      })
+      .find('#dle-content > .short_news_title')
+      .set({
+        title: '.short_news_title_center'
+      })
+      .follow('a')
+      .find('.torrent > .title > a@href')
+      .set('url')
+      .data(el => {
+        el.url = baseUrl + el.url
+        results.push(el)
+      })
+      .done(() => {
+        res({
+          result: toText(result)
+        })
+      })
   })
+}
+
+function toText(array) {
+  result = ''
+  array.map((el, i, arr)=> {
+    result +=
+`${el.title}
+  ${el.url}
+------------------`
+  })
+  return result
 }
