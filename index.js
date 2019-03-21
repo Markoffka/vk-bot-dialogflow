@@ -2,7 +2,7 @@ const server = require('./Server')
 const vk = require('./vk')
 
 const activity = () => {
-  let a = process.env.activity || 0
+  let a = process.env.activity || 1
   return parseInt(a)
 }
 
