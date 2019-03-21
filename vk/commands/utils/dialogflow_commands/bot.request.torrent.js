@@ -36,7 +36,6 @@ module.exports = async ({
         results.push(el)
       })
       .done(() => {
-        console.log(results);
         res({
           result: toText(results)
         })
