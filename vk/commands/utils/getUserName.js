@@ -4,7 +4,25 @@ module.exports = (context, bot) => {
      user_ids: context.senderId
    }));
    */
-  console.log(bot);
+  /**
+   * bot: {
+     app: {
+       token: String,
+       id: Number,
+       mode: String,
+       bot: {
+         run: function,
+         vk: {
+           VK,
+           api
+         }
+       }
+     }
+   }
+   */
+  console.log(bot.app.bot.api.users.get({
+    user_ids: context.senderId
+  }));
 
   return "@User";
 }
