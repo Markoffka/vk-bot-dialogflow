@@ -10,7 +10,11 @@ module.exports = async (answer, ctx, next, bot) => {
   }
   let toSend = answer.fulfillment.speech;
   let raw_data = {
-    bot_name: 'Auda'
+    bot_name: 'Auda',
+    user: {
+      first_name: 'User',
+      last_name: 'UserLastName'
+    }
   }
   let DialogflowAnswer = answer.fulfillment.speech;
   let FormatData = {};
@@ -27,6 +31,8 @@ module.exports = async (answer, ctx, next, bot) => {
       Object.assign(FormatData, dataFromScript);
     })
   } finally {
+    console.log(FormatData);
+
     Message = format(DialogflowAnswer, FormatData);
     ctx.send(Message);
   }
