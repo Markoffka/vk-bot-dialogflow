@@ -12,6 +12,9 @@ module.exports = async (answer, ctx, next, bot) => {
   let raw_data = {
     bot_name: 'Auda'
   }
+  let DialogflowAnswer = answer.fulfillment.speech;
+  let FormatData = {};
+  let Message = "";
 
   GetUserName(ctx, bot).then(user_data => raw_data.user = user_data);
 
@@ -19,14 +22,12 @@ module.exports = async (answer, ctx, next, bot) => {
     let script = require(`./dialogflow_commands/${answer.action}.js`)
     script(options).then(data => {
       if (data) Object.assign(raw_data, data)
-      let res = format(toSend, raw_data)
-      console.log(raw_data);
-
-      return res
-    }).then(message => {
-      ctx.send(message)
+      return raw_data
+    }).then(dataFromScript => {
+      Object.assign(FormatData, dataFromScript);
     })
-  } catch (error) {
-    ctx.send(toSend)
+  } finally {
+    Message = format(DialogflowAnswer, FormatData);
+    ctx.send(Message);
   }
 }
