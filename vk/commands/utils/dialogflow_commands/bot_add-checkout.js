@@ -8,19 +8,28 @@ module.exports = async ({
   let {
     parameters: params
   } = answer
+  if (params['title'][0] && params['description'][0] && params['date'][0] && params['price'][0]) {
 
-  return new Promise((res, rej) => {
-    AddRowToSheet({
-      title: params["title"],
-      description: params["description"],
-      date: params["date"],
-      price: params["price"],
-      
-    })  
+    console.log(params);
+
+    return new Promise((res, rej) => {
+
+      AddRowToSheet({
+        title: params["title"][0],
+        description: params["description"][0],
+        date: params["date"][0],
+        price: params["price"][0],
+        status: false,
+        id: `vk.com/id${ctx.senderId}`
+      })
 
 
-    res({
-      result: "Ваш заказ был добавлен."
+      res({
+        result: "Ваш заказ был добавлен."
+      })
+
     })
-  })
+  } else {
+    return;
+  }
 }
