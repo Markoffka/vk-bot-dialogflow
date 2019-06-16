@@ -10,6 +10,7 @@
     "express-vue": "^5.8.2",
     "lodash": "^4.17.11",
     "osmosis": "latest",
+    "pope": "^2.0.2",
     "string-template": "^1.0.0",
     "vk-io": "^4.0.0-rc.15"
   },
