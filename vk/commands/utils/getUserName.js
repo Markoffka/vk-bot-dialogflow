@@ -1,14 +1,10 @@
-const {
-  VK,
-} = require("vk-io");
-const vk = new VK();
-const {
-  api
-} = vk;
+module.exports = (context, bot) => {
+  /**
+   * console.log(api.users.get({
+     user_ids: context.senderId
+   }));
+   */
+  console.log(bot);
 
-module.exports = (context) => {
-  console.log(api.users.get({
-    user_ids: context.senderId
-  }));
   return "@User";
 }

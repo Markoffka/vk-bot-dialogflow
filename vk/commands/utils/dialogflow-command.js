@@ -1,7 +1,12 @@
 const format = require('string-template')
 const GetUserName = require('./getUserName');
- 
-module.exports = async (answer, ctx, next) => {
+
+/**
+ * bot : {
+ *  
+ * }
+ */
+module.exports = async (answer, ctx, next, bot) => {
   let options = {
     answer,
     ctx,
@@ -9,7 +14,7 @@ module.exports = async (answer, ctx, next) => {
   }
   let toSend = answer.fulfillment.speech;
   let raw_data = {
-    name: GetUserName(ctx),
+    name: GetUserName(ctx, bot),
     bot_name: 'Auda'
   }
   //FIXME: set name to user name

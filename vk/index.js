@@ -5,7 +5,8 @@ const {
 } = require("vk-io");
 const vk = new VK();
 const {
-  updates
+  updates,
+  api
 } = vk;
 
 const commands = require('./commands')
@@ -45,5 +46,6 @@ module.exports = {
   run: run,
   vk: vk,
   _vk: VK,
-  updates
+  updates,
+  api
 }
