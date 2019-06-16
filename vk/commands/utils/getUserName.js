@@ -20,9 +20,9 @@ module.exports = (context, bot) => {
      }
    }
    */
-  console.log(bot.app.bot.api.users.get({
+  bot.app.bot.api.users.get({
     user_ids: context.senderId
-  }));
+  }).then(data => console.log(data));
 
   return "@User";
 }
