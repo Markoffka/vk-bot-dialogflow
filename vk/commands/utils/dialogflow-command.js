@@ -31,8 +31,8 @@ module.exports = async (answer, ctx, next, bot) => {
       Object.assign(FormatData, dataFromScript);
     })
   } finally {
+    console.log(raw_data);
     console.log(FormatData);
-
     Message = format(DialogflowAnswer, FormatData);
     ctx.send(Message);
   }
