@@ -30,6 +30,8 @@ module.exports = async (answer, ctx, next, bot) => {
     }).then(dataFromScript => {
       Object.assign(FormatData, dataFromScript);
     })
+  } catch (e) {
+    console.error(e.message);
   } finally {
     console.log(raw_data);
     console.log(FormatData);
