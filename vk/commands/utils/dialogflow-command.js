@@ -18,6 +18,10 @@ module.exports = async (answer, ctx, next, bot) => {
     script(options).then(data => {
       if (data) Object.assign(raw_data, data)
       let res = format(toSend, raw_data)
+      console.log(res);
+      console.log(raw_data.user.first_name);
+
+
       return res
     }).then(message => {
       console.log(ctx)
