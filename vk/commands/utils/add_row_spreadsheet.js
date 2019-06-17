@@ -30,7 +30,7 @@ module.exports = ({
     };
 
     sheets
-      .authorize()
+      .authorize(JSON.parse(require(path.join(__dirname, 'credentials.json'))))
       .then(auth => sheets.values("append", auth, payload))
       .then(response => {
         res(response.toString());
