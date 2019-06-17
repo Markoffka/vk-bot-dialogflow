@@ -14,7 +14,7 @@ module.exports = ({
       "1051873956520-b7mjd4rr137mnuacs3lcduvgrnor9esi.apps.googleusercontent.com";
 
     const SheetsAPI = require('sheets-api');
-    const sheets = new SheetsAPI('./');
+    const sheets = new SheetsAPI('./credentials.json');
     const SPREADSHEET_ID = sheet_id;
     let payload = {
       spreadsheetId: SPREADSHEET_ID,
