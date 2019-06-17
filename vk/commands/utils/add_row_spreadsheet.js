@@ -1,3 +1,4 @@
+const path = require('path')
 module.exports = ({
   title,
   description,
@@ -14,7 +15,7 @@ module.exports = ({
       "1051873956520-b7mjd4rr137mnuacs3lcduvgrnor9esi.apps.googleusercontent.com";
 
     const SheetsAPI = require("sheets-api");
-    const sheets = new SheetsAPI(__dirname + '/credentials.json');
+    const sheets = new SheetsAPI(path.join(__dirname, 'credentials.json'));
     const SPREADSHEET_ID = sheet_id;
     let payload = {
       spreadsheetId: SPREADSHEET_ID,
