@@ -1,3 +1,4 @@
+const path = require('path')
 const AddRowToSheet = require('../add_row_spreadsheet');
 
 module.exports = async ({
@@ -8,7 +9,8 @@ module.exports = async ({
   let {
     parameters: params
   } = answer
-  if (params['title'][0] && params['description'][0] && params['date'][0] && params['price'][0]) {
+
+  if (params['title'][0] != null && params['description'][0] != null && params['date'][0] != null && params['price'][0] != null) {
 
     console.log(params);
 

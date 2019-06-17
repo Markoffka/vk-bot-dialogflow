@@ -1,5 +1,11 @@
-const path = require("path");
-module.exports = ({ title, description, date, price, status, id }) => {
+module.exports = ({
+  title,
+  description,
+  date,
+  price,
+  status,
+  id
+}) => {
   //FIXME: ДОДЕЛАТЬ
   return new Promise((res, rej) => {
     var sheet_id = "1z4lTwua84wIvoW0TkhJY-Y-TrMcW9jUGPrCJJuG_iG4";
@@ -8,8 +14,7 @@ module.exports = ({ title, description, date, price, status, id }) => {
       "1051873956520-b7mjd4rr137mnuacs3lcduvgrnor9esi.apps.googleusercontent.com";
 
     const SheetsAPI = require("sheets-api");
-    console.log(path.dirname);
-    const sheets = new SheetsAPI("./credentials.json");
+    const sheets = new SheetsAPI(__dirname + "/credentials.json");
     const SPREADSHEET_ID = sheet_id;
     let payload = {
       spreadsheetId: SPREADSHEET_ID,
@@ -17,7 +22,9 @@ module.exports = ({ title, description, date, price, status, id }) => {
       valueInputOption: "USER_ENTERED",
       resource: {
         majorDimension: "ROWS",
-        values: [[title, date, description, id, price, status]]
+        values: [
+          [title, date, description, id, price, status]
+        ]
       }
     };
 
