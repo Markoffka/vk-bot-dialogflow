@@ -8,7 +8,7 @@
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.4",
     "express-vue": "^5.8.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "osmosis": "latest",
     "pope": "^2.0.2",
     "sheets-api": "^1.0.8",
