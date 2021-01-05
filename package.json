@@ -4,7 +4,7 @@
   "description": "VK Rus Bot Extensiable",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.4",
     "express-vue": "^5.8.2",
